@@ -1,0 +1,37 @@
+#Here are questions that I used to analyze a database called Chinook.
+#This database represents a digital media store and includes tables for artists, albums, media tracks, invoices, and customers. 
+
+#1. Show Customers (their full names, customer ID, and country) who are not in the US:
+SELECT FirstName, LastName, CustomerId, Country
+FROM chinook.customers
+WHERE Country <> "USA";
+
+#2. Show only the Customers from Brazil:
+SELECT *
+FROM chinook.customers
+WHERE Country = "Brazil";
+
+#3. Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country:
+SELECT I.InvoiceId, I.InvoiceDate, I.BillingCountry, C.FirstName, C.LastName
+FROM chinook.invoices AS I
+LEFT JOIN chinook.customers AS C
+ON C.CustomerId=I.CustomerId
+WHERE I.BillingCountry= "Brazil";
+
+#4. Show the Employees who are Sales Agents:
+SELECT * FROM chinook.employees
+WHERE Title = "Sales Support Agent";
+
+#5. Find a unique/distinct list of billing countries from the Invoice table:
+SELECT DISTINCT BillingCountry FROM chinook.Invoices;
+
+#6. How many Invoices were there in 2009?
+SELECT COUNT(*)
+FROM chinook.Invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+#7. What are the total sales for 2009?
+SELECT SUM(Total)
+FROM chinook.Invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
